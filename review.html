@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;1,900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    width: 100%;
+    background: transparent;
+    overflow-x: hidden;
+  }
+
+  .cti-testimonial-section {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #E6EDE9;
+    padding: 0px 0;
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .cti-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .cti-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 24px;
+    margin-bottom: 48px;
+  }
+
+  .cti-header-left { flex: 1; }
+
+  .cti-subtitle {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: #0B5029;
+    margin-bottom: 12px;
+  }
+
+  .cti-title {
+    font-family: 'Cabrito Didone Ext Demi', 'Cabrito Didone', serif;
+    font-weight: 600;
+    font-size: 36px;
+    color: black;
+    line-height: 1.15;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+  }
+
+  .cti-title span.highlight-text {
+    color: #0B5029;
+  }
+
+  .cti-nav-buttons { display: flex; gap: 12px; flex-shrink: 0; }
+
+  .cti-nav-btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1px solid rgba(11, 80, 41, 0.2);
+    background: rgba(255, 255, 255, 0.6);
+    color: #0B5029;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+  }
+
+  .cti-nav-btn:hover {
+    border-color: #0B5029;
+    background: #0B5029;
+    color: #ffffff;
+  }
+
+  .cti-nav-btn svg { width: 20px; height: 20px; }
+
+  .cti-carousel { position: relative; overflow: hidden; }
+
+  .cti-track {
+    display: flex;
+    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .cti-slide { flex: 0 0 100%; padding: 0; }
+
+  .cti-card {
+    background: #ffffff;
+    border: 1px solid rgba(11, 80, 41, 0.1);
+    border-radius: 20px;
+    padding: 32px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+  }
+
+  .cti-card:hover {
+    border-color: #0B5029;
+    box-shadow: 0 8px 25px rgba(11, 80, 41, 0.06);
+  }
+
+  .cti-stars { display: flex; gap: 3px; margin-bottom: 20px; }
+  .cti-stars svg { width: 16px; height: 16px; fill: #0B5029; color: #0B5029; }
+
+  .cti-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: #222222;
+    line-height: 1.7;
+    flex: 1;
+    margin-bottom: 28px;
+  }
+
+  .cti-author {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+  }
+
+  .cti-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid #0B5029;
+    flex-shrink: 0;
+  }
+
+  /* Fallback avatar shown when no CMS image exists */
+  .cti-avatar-fallback {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1px solid #0B5029;
+    background: #0B5029;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    flex-shrink: 0;
+    overflow: hidden;
+    padding: 0 4px;
+    text-align: center;
+    line-height: 1.1;
+  }
+
+  .cti-name {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #111111;
+    margin-bottom: 3px;
+  }
+
+  .cti-role {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #666666;
+  }
+
+  .cti-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 32px;
+  }
+
+  .cti-dot {
+    height: 6px;
+    border-radius: 3px;
+    border: none;
+    background: rgba(11, 80, 41, 0.15);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .cti-dot.active { background: #0B5029; }
+
+  .cti-empty {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    color: #666666;
+    padding: 40px 0;
+    text-align: center;
+    width: 100%;
+  }
+
+  @media (max-width: 479px) {
+    .cti-testimonial-section { padding: 48px 0; }
+    .cti-container { padding: 0 16px; }
+    .cti-title { font-size: 22px; white-space: normal; }
+    .cti-text { font-size: 14px; }
+    .cti-name { font-size: 14px; }
+    .cti-card { padding: 24px; }
+    .cti-nav-btn { width: 40px; height: 40px; }
+    .cti-dot { width: 24px; }
+    .cti-dot.active { width: 32px; }
+  }
+
+  @media (min-width: 480px) and (max-width: 767px) {
+    .cti-testimonial-section { padding: 60px 0; }
+    .cti-title { font-size: 28px; white-space: normal; }
+    .cti-slide { flex: 0 0 100%; }
+    .cti-dot { width: 24px; }
+    .cti-dot.active { width: 32px; }
+  }
+
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .cti-testimonial-section { padding: 72px 0; }
+    .cti-header { flex-direction: row; align-items: flex-end; }
+    .cti-title { font-size: 32px; }
+    .cti-slide { flex: 0 0 50%; padding: 0 0 0 16px; }
+    .cti-track { margin-left: -16px; }
+    .cti-dot { width: 32px; }
+    .cti-dot.active { width: 48px; }
+  }
+
+  @media (min-width: 1024px) and (max-width: 1439px) {
+    .cti-testimonial-section { padding: 80px 0; }
+    .cti-header { flex-direction: row; align-items: flex-end; }
+    .cti-title { font-size: 36px; }
+    .cti-slide { flex: 0 0 33.333%; padding: 0 0 0 20px; }
+    .cti-track { margin-left: -20px; }
+    .cti-card { padding: 36px; }
+    .cti-dot { width: 32px; }
+    .cti-dot.active { width: 48px; }
+  }
+
+  @media (min-width: 1440px) {
+    .cti-testimonial-section { padding: 100px 0; }
+    .cti-container { max-width: 1320px; padding: 0 24px; }
+    .cti-header { flex-direction: row; align-items: flex-end; }
+    .cti-title { font-size: 42px; }
+    .cti-slide { flex: 0 0 33.333%; padding: 0 0 0 24px; }
+    .cti-track { margin-left: -24px; }
+    .cti-card { padding: 40px; }
+    .cti-dot { width: 40px; }
+    .cti-dot.active { width: 56px; }
+  }
+</style>
+</head>
+<body>
+
+<section class="cti-testimonial-section" id="cti-testimonials">
+  <div class="cti-container">
+
+    <div class="cti-header">
+      <div class="cti-header-left">
+        <h2 class="cti-title">WHAT OUR <span class="highlight-text">CLIENTS SAY</span></h2>
+      </div>
+      <div class="cti-nav-buttons">
+        <button class="cti-nav-btn" id="ctiPrev" aria-label="Previous testimonial">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <button class="cti-nav-btn" id="ctiNext" aria-label="Next testimonial">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="cti-carousel" id="ctiCarousel">
+      <div class="cti-track" id="ctiTrack">
+        <div class="cti-empty" id="ctiEmpty">Loading reviews...</div>
+      </div>
+    </div>
+
+    <div class="cti-dots" id="ctiDots"></div>
+
+  </div>
+</section>
+
+<script>
+(function() {
+
+  var STAR_SVG = '<svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>';
+
+  var track = document.getElementById('ctiTrack');
+  var dotsContainer = document.getElementById('ctiDots');
+  var prevBtn = document.getElementById('ctiPrev');
+  var nextBtn = document.getElementById('ctiNext');
+  var carousel = document.getElementById('ctiCarousel');
+
+  var slides = [];
+  var currentIndex = 0;
+  var slidesPerView = getSlidesPerView();
+  var autoPlayInterval;
+  var reviewsData = [];
+
+  function getSlidesPerView() {
+    var w = window.innerWidth;
+    if (w >= 1024) return 3;
+    if (w >= 768) return 2;
+    return 1;
+  }
+
+  function escapeHtml(str) {
+    if (!str) return '';
+    var div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  // Builds the avatar: real CMS image if present, otherwise an initial badge
+  // made from the first word of the name (e.g. "Sarah Jenkins" -> "SA" / "S")
+  function buildAvatarHtml(name, imageUrl) {
+    if (imageUrl) {
+      return '<img src="' + imageUrl + '" alt="' + escapeHtml(name) + '" class="cti-avatar" loading="lazy">';
+    }
+    var firstWord = (name || '').trim().split(/\s+/)[0] || '?';
+    var initial = firstWord.slice(0, 2); // first word, up to 2 chars, e.g. "SA"
+    return '<div class="cti-avatar-fallback">' + escapeHtml(initial) + '</div>';
+  }
+
+  function buildSlideHtml(item) {
+    var starsHtml = '';
+    for (var s = 0; s < 5; s++) { starsHtml += STAR_SVG; }
+
+    return (
+      '<div class="cti-slide">' +
+        '<div class="cti-card">' +
+          '<div class="cti-stars">' + starsHtml + '</div>' +
+          '<p class="cti-text">' + escapeHtml(item.description) + '</p>' +
+          '<div class="cti-author">' +
+            buildAvatarHtml(item.title, item.image) +
+            '<div>' +
+              '<div class="cti-name">' + escapeHtml(item.title) + '</div>' +
+              '<div class="cti-role">' + escapeHtml(item.designation) + '</div>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  function renderReviews(reviews) {
+    reviewsData = Array.isArray(reviews) ? reviews : [];
+    stopAutoPlay();
+
+    if (!reviewsData.length) {
+      track.innerHTML = '<div class="cti-empty">No reviews yet.</div>';
+      dotsContainer.innerHTML = '';
+      return;
+    }
+
+    track.innerHTML = reviewsData.map(buildSlideHtml).join('');
+    slides = track.querySelectorAll('.cti-slide');
+    currentIndex = 0;
+    slidesPerView = getSlidesPerView();
+
+    renderDots();
+    goToSlide(0);
+    if (slides.length > slidesPerView) startAutoPlay();
+  }
+
+  function renderDots() {
+    dotsContainer.innerHTML = '';
+    slides.forEach(function(_, i) {
+      var dot = document.createElement('button');
+      dot.className = 'cti-dot' + (i === currentIndex ? ' active' : '');
+      dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+      dot.addEventListener('click', function() { stopAutoPlay(); goToSlide(i); startAutoPlay(); });
+      dotsContainer.appendChild(dot);
+    });
+  }
+
+  function goToSlide(index) {
+    if (!slides.length) return;
+    var maxIndex = Math.max(0, slides.length - slidesPerView);
+    currentIndex = Math.max(0, Math.min(index, maxIndex));
+    var slideWidth = 100 / slidesPerView;
+    track.style.transform = 'translateX(-' + (currentIndex * slideWidth) + '%)';
+    updateDots();
+  }
+
+  function updateDots() {
+    var dots = dotsContainer.querySelectorAll('.cti-dot');
+    dots.forEach(function(dot, i) {
+      dot.classList.toggle('active', i === currentIndex);
+    });
+  }
+
+  function nextSlide() {
+    if (!slides.length) return;
+    var maxIndex = Math.max(0, slides.length - slidesPerView);
+    goToSlide(currentIndex >= maxIndex ? 0 : currentIndex + 1);
+  }
+
+  function prevSlide() {
+    if (!slides.length) return;
+    var maxIndex = Math.max(0, slides.length - slidesPerView);
+    goToSlide(currentIndex <= 0 ? maxIndex : currentIndex - 1);
+  }
+
+  function startAutoPlay() { stopAutoPlay(); autoPlayInterval = setInterval(nextSlide, 5000); }
+  function stopAutoPlay() { clearInterval(autoPlayInterval); }
+
+  prevBtn.addEventListener('click', function() { stopAutoPlay(); prevSlide(); startAutoPlay(); });
+  nextBtn.addEventListener('click', function() { stopAutoPlay(); nextSlide(); startAutoPlay(); });
+
+  var startX = 0;
+  var isDragging = false;
+
+  carousel.addEventListener('touchstart', function(e) { startX = e.touches[0].clientX; isDragging = true; stopAutoPlay(); }, { passive: true });
+  carousel.addEventListener('touchend', function(e) {
+    if (!isDragging) return;
+    isDragging = false;
+    var diff = startX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) { diff > 0 ? nextSlide() : prevSlide(); }
+    startAutoPlay();
+  }, { passive: true });
+
+  window.addEventListener('resize', function() {
+    var newSlidesPerView = getSlidesPerView();
+    if (newSlidesPerView !== slidesPerView) {
+      slidesPerView = newSlidesPerView;
+      goToSlide(currentIndex);
+    }
+  });
+
+  // ---- postMessage bridge with Velo ----
+  window.addEventListener('message', function(event) {
+    var data = event.data;
+    if (!data || typeof data !== 'object') return;
+
+    if (data.type === 'CTI_REVIEWS_DATA') {
+      renderReviews(data.reviews);
+    }
+  });
+
+  // Tell Velo the iframe is ready to receive data
+  function notifyParentReady() {
+    if (window.parent) {
+      window.parent.postMessage({ type: 'CTI_READY' }, '*');
+    }
+  }
+
+  notifyParentReady();
+  // In case Velo's code runs after this script's first message, retry a couple times
+  setTimeout(notifyParentReady, 500);
+  setTimeout(notifyParentReady, 1500);
+
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Casa Calma Map</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 100%; height: 100%; background: #f5efe3; }
+  body {
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+  }
+  .map-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 1100px;
+    aspect-ratio: 1000 / 600;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 30px 80px -30px rgba(80,60,40,0.35);
+  }
+  .map-wrap svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+</style>
+</head>
+<body>
+  <div class="map-wrap">
+    <svg viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <radialGradient id="land" cx="35%" cy="45%" r="80%">
+          <stop offset="0%" stop-color="#f1e7d3"/>
+          <stop offset="60%" stop-color="#ece1cb"/>
+          <stop offset="100%" stop-color="#e4d7bd"/>
+        </radialGradient>
+        <linearGradient id="sea" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#b9d0d6"/>
+          <stop offset="100%" stop-color="#9fbcc6"/>
+        </linearGradient>
+        <filter id="paper">
+          <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/>
+          <feColorMatrix values="0 0 0 0 0.4  0 0 0 0 0.3  0 0 0 0 0.2  0 0 0 0.04 0"/>
+          <feComposite in2="SourceGraphic" operator="in"/>
+        </filter>
+      </defs>
+
+      <!-- Land -->
+      <rect width="1000" height="600" fill="url(#land)"/>
+      <rect width="1000" height="600" fill="url(#land)" filter="url(#paper)" opacity="0.6"/>
+
+      <!-- Sea -->
+      <path d="M 1000,600 L 1000,0 L 770,0 Q 740,80 700,140 Q 660,210 620,260 Q 560,310 520,360 Q 470,420 440,500 Q 430,560 460,600 Z" fill="url(#sea)"/>
+      <path d="M 770,0 Q 740,80 700,140 Q 660,210 620,260 Q 560,310 520,360 Q 470,420 440,500 Q 430,560 460,600" fill="none" stroke="#8aa6ae" stroke-width="1" opacity="0.5"/>
+
+      <!-- Roads -->
+      <g stroke="#d8c8ac" stroke-width="6" fill="none" stroke-linecap="round" opacity="0.85">
+        <path d="M 0,260 Q 150,240 280,230 Q 380,225 470,260 Q 560,300 640,330"/>
+        <path d="M 100,80 Q 200,140 280,200 Q 340,250 380,310 Q 410,400 430,500"/>
+        <path d="M 280,200 Q 380,210 480,220 Q 580,240 660,290"/>
+        <path d="M 60,420 Q 200,400 320,380 Q 420,370 500,390"/>
+        <path d="M 360,180 L 410,500"/>
+      </g>
+      <g stroke="#fdfaf2" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.7">
+        <path d="M 0,260 Q 150,240 280,230 Q 380,225 470,260 Q 560,300 640,330"/>
+        <path d="M 100,80 Q 200,140 280,200 Q 340,250 380,310 Q 410,400 430,500"/>
+      </g>
+      <g stroke="#cdbb9b" stroke-width="1.5" fill="none" opacity="0.6">
+        <path d="M 220,150 L 250,310"/>
+        <path d="M 320,140 L 350,400"/>
+        <path d="M 150,300 L 400,290"/>
+        <path d="M 200,420 L 480,400"/>
+        <path d="M 500,180 L 530,330"/>
+      </g>
+
+      <!-- Sea ripples -->
+      <g stroke="#8eb0ba" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.55">
+        <path d="M 820,360 q 12,-8 24,0 t 24,0"/>
+        <path d="M 870,420 q 12,-8 24,0 t 24,0"/>
+        <path d="M 800,470 q 12,-8 24,0 t 24,0"/>
+        <path d="M 880,510 q 12,-8 24,0 t 24,0"/>
+        <path d="M 760,540 q 12,-8 24,0 t 24,0"/>
+      </g>
+
+      <!-- Street labels -->
+      <g font-family="Inter, sans-serif" font-size="11" fill="#8a7659" letter-spacing="3" font-weight="500">
+        <path id="ave-africa" d="M 280,228 Q 380,225 470,255" fill="none"/>
+        <text><textPath href="#ave-africa" startOffset="10%">AVENIDA AFRICA</textPath></text>
+        <path id="gran-alacant" d="M 240,300 Q 340,295 440,310" fill="none"/>
+        <text font-size="13" letter-spacing="4" fill="#6e5b42" font-weight="600">
+          <textPath href="#gran-alacant" startOffset="5%">GRAN ALACANT</textPath>
+        </text>
+      </g>
+
+      <!-- Sea label -->
+      <text x="870" y="220" text-anchor="middle" font-family="'Cormorant Garamond', serif" font-size="22" letter-spacing="4" fill="#7a99a3" font-style="italic">
+        <tspan x="870" dy="0">MEDITERRANEAN</tspan>
+        <tspan x="870" dy="28">SEA</tspan>
+      </text>
+
+      <!-- Title -->
+      <text x="360" y="100" text-anchor="middle" font-family="'Cormorant Garamond', serif" font-size="28" letter-spacing="6" fill="#4a3f2f" font-weight="500">CASA CALMA</text>
+
+      <!-- Home pin -->
+      <g transform="translate(360,170)">
+        <path d="M 0,0 C -18,-18 -18,-42 0,-52 C 18,-42 18,-18 0,0 Z" fill="#4a5d3a"/>
+        <g transform="translate(0,-34)" stroke="#f5efe3" stroke-width="1.5" fill="none" stroke-linejoin="round" stroke-linecap="round">
+          <path d="M -7,2 L 0,-5 L 7,2 L 7,8 L -7,8 Z"/>
+          <path d="M -3,8 L -3,3 L 3,3 L 3,8"/>
+        </g>
+      </g>
+
+      <!-- POIs -->
+      <g font-family="Inter, sans-serif" fill="#5a4a35">
+        <!-- Supermarket -->
+        <g transform="translate(175,195)">
+          <g stroke="#4a3f2f" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M -10,-8 L -6,-8 L -3,4 L 8,4 L 11,-4 L -4,-4"/>
+            <circle cx="-2" cy="9" r="1.8" fill="#4a3f2f"/>
+            <circle cx="7" cy="9" r="1.8" fill="#4a3f2f"/>
+          </g>
+          <text y="32" text-anchor="middle" font-size="11" font-weight="600" letter-spacing="2">SUPERMARKET</text>
+          <text y="46" text-anchor="middle" font-size="9" letter-spacing="2" fill="#8a7659">1 MIN WALK</text>
+        </g>
+        <!-- Restaurant -->
+        <g transform="translate(195,360)">
+          <g stroke="#4a3f2f" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M -12,0 Q 0,-14 12,0 Z"/>
+            <path d="M 0,0 L 0,12"/>
+            <path d="M 0,12 q 3,0 3,-3"/>
+          </g>
+          <text y="32" text-anchor="middle" font-size="11" font-weight="600" letter-spacing="2">RESTAURANT</text>
+          <text y="46" text-anchor="middle" font-size="9" letter-spacing="2" fill="#8a7659">1 MIN WALK</text>
+        </g>
+        <!-- Airport -->
+        <g transform="translate(615,110)">
+          <g stroke="#4a3f2f" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M -12,2 L 12,-4 L 8,0 L 12,4 L -12,-2 Z"/>
+            <path d="M -4,-1 L -8,-6 M -4,1 L -8,6"/>
+          </g>
+          <text y="32" text-anchor="middle" font-size="11" font-weight="600" letter-spacing="2">ALICANTE AIRPORT</text>
+          <text y="46" text-anchor="middle" font-size="9" letter-spacing="2" fill="#8a7659">15 MIN DRIVE</text>
+        </g>
+        <!-- Santa Pola -->
+        <g transform="translate(625,245)">
+          <g stroke="#4a3f2f" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="0" cy="-8" r="2.5"/>
+            <path d="M 0,-5 L 0,10"/>
+            <path d="M -5,0 L 5,0"/>
+            <path d="M -9,6 Q -5,12 0,12 Q 5,12 9,6"/>
+          </g>
+          <text y="32" text-anchor="middle" font-size="11" font-weight="600" letter-spacing="2">SANTA POLA</text>
+          <text y="46" text-anchor="middle" font-size="9" letter-spacing="2" fill="#8a7659">10 MIN DRIVE</text>
+        </g>
+        <!-- Tabarca Ferry -->
+        <g transform="translate(510,415)">
+          <g stroke="#4a3f2f" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M -12,4 L 12,4 L 9,10 L -9,10 Z"/>
+            <path d="M -7,4 L -7,-2 L 7,-2 L 7,4"/>
+            <path d="M -3,-2 L -3,-7 L 3,-7 L 3,-2"/>
+          </g>
+          <text y="32" text-anchor="middle" font-size="11" font-weight="600" letter-spacing="2">TABARCA FERRY</text>
+          <text y="46" text-anchor="middle" font-size="9" letter-spacing="2" fill="#8a7659">10 MIN DRIVE</text>
+        </g>
+      </g>
+
+      <!-- Landmark -->
+      <g transform="translate(450,320)" stroke="#9a8466" stroke-width="1.4" fill="none">
+        <rect x="-8" y="-6" width="16" height="14" rx="1"/>
+        <path d="M -8,-6 L 0,-14 L 8,-6"/>
+        <text x="0" y="3" text-anchor="middle" font-size="9" fill="#9a8466" stroke="none" font-family="Georgia, serif">§</text>
+      </g>
+    </svg>
+  </div>
+</body>
+</html>
