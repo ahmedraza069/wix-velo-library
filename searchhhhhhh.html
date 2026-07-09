@@ -1,0 +1,617 @@
+<!-- ===================================================================
+     LANDYS — SEARCH BAR SECTION (Full Custom, Thumbtack-style)
+     Paste this entire block into a Wix HTML Embed (Custom Element / HTML iFrame)
+     Fields: General Search (suggestions) · Contractor Type (dropdown)
+             Land Type (dropdown) · Project Type (dropdown) · Zip (suggestions)
+     Fonts: Montserrat (Bold) for labels/button, Poppins (Regular) for body
+     Colors: Primary #464137 | Section BG #FEFBF6 | Secondary #D8D2CA
+     All data is STATIC — no backend calls. Every path routes to ROLLOUT_URL.
+=================================================================== -->
+<style>
+  html, body { margin: 0; padding: 0; background: transparent; }
+  #lsb-section * { box-sizing: border-box; }
+
+  #lsb-section {
+    --primary: #464137;
+    --bg: #FEFBF6;
+    --secondary: #D8D2CA;
+    --white: #FFFFFF;
+    --muted: #A39C8E;
+
+    font-family: 'Poppins', sans-serif;
+    background: transparent;
+    width: 100%;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    overflow-x: hidden;
+  }
+
+  #lsb-section .lsb-wrap { width: 100%; max-width: 100%; }
+
+  /* ---------- Search Card ---------- */
+  #lsb-section .lsb-card {
+    background: var(--white);
+    border: 1px solid var(--secondary);
+    border-radius: 100px;
+    padding: 8px;
+    box-shadow: 0 12px 34px rgba(70, 65, 55, 0.09);
+    display: flex;
+    align-items: stretch;
+    gap: 8px;
+    position: relative;
+  }
+
+  #lsb-section .lsb-field {
+    flex: 1 1 0;
+    position: relative;
+    text-align: left;
+    padding: 9px 20px;
+    border-right: 1px solid var(--secondary);
+    min-width: 0;
+    cursor: pointer;
+    border-radius: 40px;
+    transition: background 0.18s ease;
+  }
+  #lsb-section .lsb-field:hover { background: #FBF8F2; }
+  #lsb-section .lsb-field.open { background: #FBF8F2; }
+  #lsb-section .lsb-field:last-of-type { border-right: none; }
+
+  #lsb-section .lsb-field.lsb-search { flex: 1.5 1 0; }
+  #lsb-section .lsb-field.lsb-zip { flex: 0.7 1 0; min-width: 130px; }
+
+  #lsb-section .lsb-field-label {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 10.5px;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: var(--primary);
+    opacity: 0.9;
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  #lsb-section .lsb-input-row {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+  }
+
+  #lsb-section .lsb-field-icon {
+    width: 17px; height: 17px; flex-shrink: 0;
+    color: var(--primary); opacity: 0.6;
+  }
+  #lsb-section .lsb-field-icon svg { width: 100%; height: 100%; }
+
+  #lsb-section .lsb-field input {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14.5px;
+    font-weight: 500;
+    color: var(--primary);
+    padding: 1px 0;
+    cursor: pointer;
+  }
+  #lsb-section .lsb-field input::placeholder { color: var(--muted); font-weight: 400; }
+  #lsb-section .lsb-field.lsb-typeable input { cursor: text; }
+
+  #lsb-section .lsb-chevron {
+    width: 12px; height: 12px; flex-shrink: 0;
+    color: var(--muted);
+    transition: transform 0.2s ease;
+    margin-left: auto;
+  }
+  #lsb-section .lsb-field.open .lsb-chevron { transform: rotate(180deg); color: var(--primary); }
+
+  #lsb-section .lsb-clear-btn {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--secondary);
+    border: none;
+    color: var(--primary);
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    font-size: 12px;
+    line-height: 1;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+  }
+  #lsb-section .lsb-field.has-value .lsb-clear-btn { display: flex; }
+  #lsb-section .lsb-field.has-value .lsb-chevron { display: none; }
+
+  #lsb-section .lsb-submit-wrap { flex: 0 0 auto; display: flex; align-items: center; padding-left: 4px; }
+
+  #lsb-section .lsb-submit {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 14.5px;
+    letter-spacing: 0.2px;
+    color: var(--white);
+    background: var(--primary);
+    border: none;
+    border-radius: 100px;
+    height: 56px;
+    padding: 0 26px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    flex-shrink: 0;
+    white-space: nowrap;
+    transition: background 0.22s ease, transform 0.15s ease;
+  }
+  #lsb-section .lsb-submit:hover { background: #5c5348; transform: translateY(-1px); }
+  #lsb-section .lsb-submit svg { width: 17px; height: 17px; flex-shrink: 0; }
+  #lsb-section .lsb-submit-text { line-height: 1; }
+
+  /* ---------- Suggestion / dropdown panel ---------- */
+  #lsb-section .lsb-suggestions {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 0;
+    width: 280px;
+    max-width: 90vw;
+    background: var(--white);
+    border: 1px solid var(--secondary);
+    border-radius: 14px;
+    box-shadow: 0 18px 40px rgba(70, 65, 55, 0.16);
+    padding: 6px;
+    display: none;
+    z-index: 60;
+    max-height: 240px;
+    overflow-y: auto;
+    text-align: left;
+    cursor: default;
+  }
+  #lsb-section .lsb-field.open .lsb-suggestions { display: block; }
+  #lsb-section .lsb-field.lsb-search .lsb-suggestions,
+  #lsb-section .lsb-field.lsb-zip .lsb-suggestions { width: 300px; }
+
+  #lsb-section .lsb-suggestions::-webkit-scrollbar { width: 5px; }
+  #lsb-section .lsb-suggestions::-webkit-scrollbar-thumb { background: var(--secondary); border-radius: 10px; }
+
+  #lsb-section .lsb-sugg-heading {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 9px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 5px 8px 2px;
+  }
+
+  #lsb-section .lsb-sugg-item {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 6px 8px;
+    border-radius: 9px;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13.5px;
+    color: var(--primary);
+    transition: background 0.15s ease;
+  }
+  #lsb-section .lsb-sugg-item:hover,
+  #lsb-section .lsb-sugg-item.active { background: var(--bg); }
+
+  #lsb-section .lsb-sugg-item .lsb-sugg-icon {
+    width: 22px; height: 22px; flex-shrink: 0;
+    border-radius: 7px;
+    background: var(--bg);
+    border: 1px solid var(--secondary);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--primary);
+  }
+  #lsb-section .lsb-sugg-item .lsb-sugg-icon svg { width: 11px; height: 11px; }
+
+  #lsb-section .lsb-sugg-item .lsb-sugg-tag {
+    margin-left: auto;
+    font-size: 9.5px;
+    font-weight: 600;
+    color: var(--muted);
+    background: var(--bg);
+    border: 1px solid var(--secondary);
+    padding: 2px 7px;
+    border-radius: 20px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  #lsb-section .lsb-sugg-empty {
+    padding: 14px 10px;
+    text-align: center;
+    font-size: 12.5px;
+    color: var(--muted);
+  }
+
+  /* =========================================================
+     RESPONSIVE BREAKPOINTS: 1920 / 1680 / 1440 / 1280 / 1024 / 768 / 430 / 390 / 320
+  ========================================================= */
+
+      @media (max-width: 1440px) {
+    #lsb-section { padding: 0; }
+  }
+
+  @media (max-width: 1280px) {
+    #lsb-section .lsb-field { padding: 9px 16px; }
+  }
+
+  @media (max-width: 1024px) {
+    #lsb-section { padding: 0; }
+    #lsb-section .lsb-card {
+      flex-wrap: wrap;
+      border-radius: 24px;
+      padding: 12px;
+      row-gap: 10px;
+    }
+    #lsb-section .lsb-field {
+      flex: 1 1 46%;
+      border-right: none;
+      border-bottom: 1px solid var(--secondary);
+      border-radius: 0;
+      padding: 13px 10px;
+    }
+    #lsb-section .lsb-field.lsb-search { flex: 1 1 100%; }
+    #lsb-section .lsb-field.lsb-zip { flex: 1 1 46%; }
+    #lsb-section .lsb-field:nth-child(4),
+    #lsb-section .lsb-field:nth-child(5) { border-bottom: none; }
+    #lsb-section .lsb-submit-wrap { flex: 1 1 100%; padding: 10px 0 0; }
+    #lsb-section .lsb-submit { width: 100%; border-radius: 16px; height: 54px; }
+  }
+
+  @media (max-width: 768px) {
+    #lsb-section { padding: 0; }
+    #lsb-section .lsb-card { padding: 10px; row-gap: 8px; }
+    #lsb-section .lsb-field { flex: 1 1 100% !important; padding: 13px 12px; border-bottom: 1px solid var(--secondary) !important; }
+    #lsb-section .lsb-field:nth-child(5) { border-bottom: none !important; }
+    #lsb-section .lsb-suggestions,
+    #lsb-section .lsb-field.lsb-search .lsb-suggestions,
+    #lsb-section .lsb-field.lsb-zip .lsb-suggestions { width: 100%; }
+  }
+
+  @media (max-width: 430px) {
+    #lsb-section { padding: 0; }
+    #lsb-section .lsb-field-label { font-size: 10px; }
+    #lsb-section .lsb-field input { font-size: 14px; }
+    #lsb-section .lsb-field-icon { width: 15px; height: 15px; }
+    #lsb-section .lsb-submit { height: 50px; font-size: 14px; }
+  }
+
+  @media (max-width: 390px) {
+    #lsb-section .lsb-card { border-radius: 20px; }
+    #lsb-section .lsb-field { padding: 11px 9px; }
+    #lsb-section .lsb-input-row { gap: 7px; }
+  }
+
+  @media (max-width: 320px) {
+    #lsb-section { padding: 0; }
+    #lsb-section .lsb-field-label { font-size: 9.5px; letter-spacing: 0.5px; }
+    #lsb-section .lsb-field input { font-size: 13px; }
+    #lsb-section .lsb-field-icon { width: 14px; height: 14px; }
+    #lsb-section .lsb-submit { height: 48px; font-size: 13px; padding: 0 18px; gap: 7px; }
+    #lsb-section .lsb-submit svg { width: 15px; height: 15px; }
+  }
+</style>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+<section id="lsb-section">
+  <div class="lsb-wrap">
+    <form class="lsb-card" id="lsbForm" autocomplete="off">
+
+      <!-- General Search -->
+      <div class="lsb-field lsb-typeable lsb-search" id="lsbField-search">
+        <span class="lsb-field-label">Search</span>
+        <div class="lsb-input-row">
+          <span class="lsb-field-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+          </span>
+          <input type="text" id="lsbInput-search" placeholder="Try 'Fencing' or 'Pond Construction'" />
+        </div>
+        <button type="button" class="lsb-clear-btn" data-clear="search">&times;</button>
+        <div class="lsb-suggestions" id="lsbSugg-search"></div>
+      </div>
+
+      <!-- Contractor Type (dropdown) -->
+      <div class="lsb-field" id="lsbField-contractor">
+        <span class="lsb-field-label">Contractor Type</span>
+        <div class="lsb-input-row">
+          <span class="lsb-field-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+          </span>
+          <input type="text" id="lsbInput-contractor" placeholder="Any contractor" readonly />
+          <svg class="lsb-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+        </div>
+        <button type="button" class="lsb-clear-btn" data-clear="contractor">&times;</button>
+        <div class="lsb-suggestions" id="lsbSugg-contractor"></div>
+      </div>
+
+      <!-- Land Type (dropdown) -->
+      <div class="lsb-field" id="lsbField-land">
+        <span class="lsb-field-label">Land Type</span>
+        <div class="lsb-input-row">
+          <span class="lsb-field-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 3-6 18h20L14 3z"/><path d="m13.5 11 3.5 10"/></svg>
+          </span>
+          <input type="text" id="lsbInput-land" placeholder="Any land type" readonly />
+          <svg class="lsb-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+        </div>
+        <button type="button" class="lsb-clear-btn" data-clear="land">&times;</button>
+        <div class="lsb-suggestions" id="lsbSugg-land"></div>
+      </div>
+
+      <!-- Project Type (dropdown) -->
+      <div class="lsb-field" id="lsbField-project">
+        <span class="lsb-field-label">Project Type</span>
+        <div class="lsb-input-row">
+          <span class="lsb-field-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+          </span>
+          <input type="text" id="lsbInput-project" placeholder="Any project" readonly />
+          <svg class="lsb-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+        </div>
+        <button type="button" class="lsb-clear-btn" data-clear="project">&times;</button>
+        <div class="lsb-suggestions" id="lsbSugg-project"></div>
+      </div>
+
+      <!-- Zip Code (suggestions) -->
+      <div class="lsb-field lsb-typeable lsb-zip" id="lsbField-zip">
+        <span class="lsb-field-label">Zip Code</span>
+        <div class="lsb-input-row">
+          <span class="lsb-field-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>
+          </span>
+          <input type="text" id="lsbInput-zip" placeholder="75201" inputmode="numeric" maxlength="5" />
+        </div>
+        <button type="button" class="lsb-clear-btn" data-clear="zip">&times;</button>
+        <div class="lsb-suggestions" id="lsbSugg-zip"></div>
+      </div>
+
+      <div class="lsb-submit-wrap">
+        <button type="submit" class="lsb-submit" aria-label="Search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+          <span class="lsb-submit-text">Search</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<script>
+(function () {
+  // ---------------------------------------------------------------
+  // CONFIG — all searches route to the same contractor rollout page.
+  // Update ROLLOUT_URL to match your live Landys rollout page.
+  // ---------------------------------------------------------------
+  var ROLLOUT_URL = "/contractors"; // <-- change to your actual rollout page slug
+
+  var ICONS = {
+    contractor: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>',
+    land: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 3-6 18h20L14 3z"/><path d="m13.5 11 3.5 10"/></svg>',
+    project: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>',
+    zip: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="2.5"/><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12z"/></svg>',
+    search: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>'
+  };
+
+  var TAG_LABEL = { contractor: "Contractor", land: "Land Type", project: "Project" };
+
+  var DATA = {
+    contractor: [
+      "Surveyors", "Land Clearing", "Dirt Work & Excavation", "Builders",
+      "Fencing & Entrances", "Water Well & Septic", "Forestry & Timber",
+      "Property Maintenance", "Wildlife Management", "Farm & Agriculture",
+      "Land Lenders", "Land Realtors"
+    ],
+    land: ["Hunting", "Homestead", "Ranching", "Timberland", "Farmland", "Development"],
+    project: [
+      "Pond Construction", "Boundary Survey", "Forestry Mulching", "Barndominium",
+      "Driveway Construction", "Water Well", "Cabin Build", "Land Clearing",
+      "Fence Installation", "Septic System Install", "Road Building", "Wildlife Food Plot"
+    ]
+  };
+
+  // Combined pool for the general Search field, tagged by category
+  var ALL_ITEMS = [];
+  ["contractor", "land", "project"].forEach(function (cat) {
+    DATA[cat].forEach(function (label) { ALL_ITEMS.push({ label: label, cat: cat }); });
+  });
+
+  var ZIP_DATA = [
+    { zip: "75201", city: "Dallas" }, { zip: "75001", city: "Addison" },
+    { zip: "77002", city: "Houston" }, { zip: "77433", city: "Cypress" },
+    { zip: "78701", city: "Austin" }, { zip: "78641", city: "Leander" },
+    { zip: "78205", city: "San Antonio" }, { zip: "79601", city: "Abilene" },
+    { zip: "76101", city: "Fort Worth" }, { zip: "75701", city: "Tyler" },
+    { zip: "77840", city: "College Station" }, { zip: "78550", city: "Harlingen" },
+    { zip: "76701", city: "Waco" }, { zip: "75904", city: "Lufkin" }
+  ];
+
+  var state = { search: "", contractor: "", land: "", project: "", zip: "" };
+  var activeIndex = { search: -1, contractor: -1, land: -1, project: -1, zip: -1 };
+  var KEYS = ["search", "contractor", "land", "project", "zip"];
+
+  function esc(s) { return String(s).replace(/"/g, "&quot;"); }
+
+  function renderList(key, query) {
+    var box = document.getElementById("lsbSugg-" + key);
+    var html = "";
+
+    if (key === "search") {
+      var items = filterGeneral(query);
+      if (!items.length) { box.innerHTML = '<div class="lsb-sugg-empty">No matches — try another term</div>'; return; }
+      html += '<div class="lsb-sugg-heading">Suggestions</div>';
+      html += items.map(function (it) {
+        return '<div class="lsb-sugg-item" data-cat="' + it.cat + '" data-value="' + esc(it.label) + '">' +
+          '<span class="lsb-sugg-icon">' + ICONS[it.cat] + '</span>' +
+          '<span>' + it.label + '</span>' +
+          '<span class="lsb-sugg-tag">' + TAG_LABEL[it.cat] + '</span></div>';
+      }).join("");
+      box.innerHTML = html;
+      return;
+    }
+
+    if (key === "zip") {
+      var zips = filterZip(query);
+      if (!zips.length) { box.innerHTML = '<div class="lsb-sugg-empty">No matches — try another zip</div>'; return; }
+      html += '<div class="lsb-sugg-heading">Suggestions</div>';
+      html += zips.map(function (z) {
+        return '<div class="lsb-sugg-item" data-value="' + z.zip + '">' +
+          '<span class="lsb-sugg-icon">' + ICONS.zip + '</span>' +
+          '<span>' + z.zip + ' — ' + z.city + '</span></div>';
+      }).join("");
+      box.innerHTML = html;
+      return;
+    }
+
+    // contractor / land / project dropdown
+    var opts = filterCategory(key, query);
+    if (!opts.length) { box.innerHTML = '<div class="lsb-sugg-empty">No matches</div>'; return; }
+    html += '<div class="lsb-sugg-heading">Choose one</div>';
+    html += opts.map(function (label) {
+      return '<div class="lsb-sugg-item" data-value="' + esc(label) + '">' +
+        '<span class="lsb-sugg-icon">' + ICONS[key] + '</span>' +
+        '<span>' + label + '</span></div>';
+    }).join("");
+    box.innerHTML = html;
+  }
+
+  function filterGeneral(query) {
+    if (!query) return ALL_ITEMS.slice(0, 8);
+    var q = query.toLowerCase();
+    return ALL_ITEMS.filter(function (it) { return it.label.toLowerCase().indexOf(q) !== -1; }).slice(0, 8);
+  }
+  function filterZip(query) {
+    if (!query) return ZIP_DATA.slice(0, 6);
+    var q = query.toLowerCase();
+    return ZIP_DATA.filter(function (z) { return z.zip.indexOf(q) === 0 || z.city.toLowerCase().indexOf(q) !== -1; }).slice(0, 8);
+  }
+  function filterCategory(key, query) {
+    var source = DATA[key];
+    if (!query) return source;
+    var q = query.toLowerCase();
+    return source.filter(function (s) { return s.toLowerCase().indexOf(q) !== -1; });
+  }
+
+  function notifyHeight() {
+    requestAnimationFrame(function () {
+      var h = document.body.scrollHeight;
+      window.parent.postMessage({ type: "lsb-resize", height: h }, "*");
+    });
+  }
+
+  function openField(key) { document.getElementById("lsbField-" + key).classList.add("open"); notifyHeight(); }
+  function closeField(key) { document.getElementById("lsbField-" + key).classList.remove("open"); activeIndex[key] = -1; notifyHeight(); }
+  function closeAll() { KEYS.forEach(closeField); notifyHeight(); }
+
+  function toggleClear(key) {
+    var input = document.getElementById("lsbInput-" + key);
+    document.getElementById("lsbField-" + key).classList.toggle("has-value", input.value.trim().length > 0);
+  }
+
+  KEYS.forEach(function (key) {
+    var input = document.getElementById("lsbInput-" + key);
+    var fieldEl = document.getElementById("lsbField-" + key);
+    var clearBtn = fieldEl.querySelector(".lsb-clear-btn");
+
+    fieldEl.addEventListener("click", function () {
+      closeAll();
+      renderList(key, input.value);
+      openField(key);
+      if (!input.hasAttribute("readonly")) input.focus();
+    });
+
+    input.addEventListener("input", function () {
+      if (key === "zip") input.value = input.value.replace(/[^0-9]/g, "");
+      state[key] = input.value;
+      toggleClear(key);
+      renderList(key, input.value);
+      openField(key);
+      notifyHeight();
+    });
+
+    input.addEventListener("keydown", function (e) {
+      var box = document.getElementById("lsbSugg-" + key);
+      var items = box.querySelectorAll(".lsb-sugg-item");
+      if (!items.length) return;
+      if (e.key === "ArrowDown") { e.preventDefault(); activeIndex[key] = Math.min(activeIndex[key] + 1, items.length - 1); highlight(items, activeIndex[key]); }
+      else if (e.key === "ArrowUp") { e.preventDefault(); activeIndex[key] = Math.max(activeIndex[key] - 1, 0); highlight(items, activeIndex[key]); }
+      else if (e.key === "Enter") {
+        e.preventDefault();
+        if (activeIndex[key] >= 0 && items[activeIndex[key]]) items[activeIndex[key]].click();
+        else closeField(key);
+      } else if (e.key === "Escape") closeField(key);
+    });
+
+    function highlight(items, idx) {
+      items.forEach(function (it, i) { it.classList.toggle("active", i === idx); });
+      if (items[idx]) items[idx].scrollIntoView({ block: "nearest" });
+    }
+
+    clearBtn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      input.value = "";
+      state[key] = "";
+      toggleClear(key);
+      renderList(key, "");
+      if (!input.hasAttribute("readonly")) input.focus();
+    });
+
+    document.getElementById("lsbSugg-" + key).addEventListener("click", function (e) {
+      var item = e.target.closest(".lsb-sugg-item");
+      if (!item) return;
+      var value = item.getAttribute("data-value");
+
+      if (key === "search") {
+        var cat = item.getAttribute("data-cat");
+        state[cat] = value;
+        document.getElementById("lsbInput-" + cat).value = value;
+        toggleClear(cat);
+        input.value = "";
+        state.search = "";
+      } else {
+        input.value = value;
+        state[key] = value;
+        toggleClear(key);
+      }
+      closeField(key);
+    });
+  });
+
+  document.addEventListener("click", function (e) {
+    if (!e.target.closest(".lsb-field")) closeAll();
+  });
+
+  function submitSearch() {
+    var params = new URLSearchParams();
+    if (state.contractor) params.set("contractor", state.contractor);
+    if (state.land) params.set("land", state.land);
+    if (state.project) params.set("project", state.project);
+    if (state.zip) params.set("zip", state.zip);
+    if (state.search) params.set("q", state.search);
+    var url = ROLLOUT_URL + (params.toString() ? "?" + params.toString() : "");
+    window.location.href = url;
+  }
+
+  document.getElementById("lsbForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    submitSearch();
+  });
+
+  window.addEventListener("load", notifyHeight);
+  window.addEventListener("resize", notifyHeight);
+  notifyHeight();
+})();
+</script>

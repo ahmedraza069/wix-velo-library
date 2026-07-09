@@ -4,7 +4,7 @@ $w.onReady(async () => {
 
     $w("#repeater1").onItemReady(($item, itemData) => {
         
-        $item("#text4").text = itemData.title  itemData.productName  "No Title"; 
+        $item("#text4").text = itemData.title  itemData.productName  "NoTitle"; 
         $item("#text2").text = itemData.price ? String(itemData.price) : "$0.00";
 
         // Set the placeholder text globally for this dropdown

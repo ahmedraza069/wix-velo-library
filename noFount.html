@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .no-results-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            text-align: center;
+            width: 100%;
+            max-width: 800px; /* Large Desktop context */
+            margin: 0 auto;
+        }
+
+        /* Unique Luxury Icon Style */
+        .icon-wrapper {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            background: rgba(220, 168, 94, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+            border: 2px dashed #DCA85E;
+        }
+
+        .icon-wrapper svg {
+            width: 60px;
+            height: 60px;
+            fill: #DCA85E;
+        }
+
+        .main-heading {
+            font-size: 32px; /* Adaptive for large screens */
+            color: #1A1A1A;
+            margin-bottom: 15px;
+            font-weight: 700;
+            text-transform: capitalize;
+        }
+
+        .sub-text {
+            font-size: 18px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 35px;
+            max-width: 500px;
+        }
+
+        /* Action Buttons */
+        .actions {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .btn-primary, .btn-secondary {
+            padding: 14px 28px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s ease;
+            font-size: 15px;
+            cursor: pointer;
+            text-align: center;
+            min-width: 180px;
+        }
+
+        .btn-primary {
+            background-color: #DCA85E;
+            color: #fff;
+            border: 2px solid #DCA85E;
+        }
+
+        .btn-primary:hover {
+            background-color: transparent;
+            color: #DCA85E;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: #1A1A1A;
+            border: 2px solid #E0E0E0;
+        }
+
+        .btn-secondary:hover {
+            border-color: #DCA85E;
+            color: #DCA85E;
+        }
+
+        /* --- RESPONSIVE BREAKPOINTS --- */
+
+        /* 1440px to 1024px */
+        @media (max-width: 1440px) {
+            .main-heading { font-size: 28px; }
+            .sub-text { font-size: 17px; }
+        }
+
+        /* Tablet (1024px to 768px) */
+        @media (max-width: 1024px) {
+            .no-results-container { padding: 30px 15px; }
+            .main-heading { font-size: 26px; }
+        }
+
+        /* Mobile Large & Small Tablet (768px to 480px) */
+        @media (max-width: 768px) {
+            .icon-wrapper { width: 110px; height: 110px; }
+            .icon-wrapper svg { width: 55px; height: 55px; }
+            .main-heading { font-size: 24px; }
+            .sub-text { font-size: 16px; margin-bottom: 25px; }
+        }
+
+        /* Mobile Standard (430px, 390px and below) */
+        @media (max-width: 480px) {
+            .no-results-container { padding: 20px 10px; }
+            .icon-wrapper { width: 100px; height: 100px; margin-bottom: 20px; }
+            .icon-wrapper svg { width: 50px; height: 50px; }
+            .main-heading { font-size: 22px; }
+            .sub-text { font-size: 15px; line-height: 1.5; }
+            .actions { flex-direction: column; gap: 10px; }
+            .btn-primary, .btn-secondary { width: 100%; min-width: unset; padding: 12px; }
+        }
+
+        @media (max-width: 390px) {
+            .main-heading { font-size: 20px; }
+            .sub-text { font-size: 14px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="no-results-container">
+        <div class="icon-wrapper">
+            <svg viewBox="0 0 24 24">
+                <path d="M10,20V14H14V20H19V12H22L12,3L2,12H5V20H10Z M12,5.69L19.19,12.16V18H16V12H8V18H4.81V12.16L12,5.69Z" />
+                <circle cx="12" cy="11" r="2" />
+            </svg>
+        </div>
+
+        <h2 class="main-heading">No Contractors Found</h2>
+        <p class="sub-text">
+            We couldn't find any contractors matching your selected criteria. Try adjusting your filters or service category to see available professionals in your area.
+        </p>
+    </div>
+
+</body>
+</html>
