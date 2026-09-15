@@ -1,3 +1,6 @@
+Running the code for the All Contractors (Item) page. To debug this code in your browser's dev tools, open vmlhx.js.
+current Item 
+{...}jsonTableCopy JSON
 responseSpeed: "Within 24 hours"
 longDescription: "Amber Sky Wildlife Co is a trusted wildlife management contractor with 19 years of experience serving landowners across Red River Valley, Texas. Our team is committed to quality workmanship, honest pricing, and reliable communication on every project."
 heroImage: "wix:image://v1/4ae31d_dd0ba861b43540f3b2b12f5ecd04a25d~mv2.png/Gemini_Generated_Image_wly6h4wly6h4wly6.png#originWidth=1216&originHeight=876"
@@ -11,10 +14,18 @@ _createdDate: "Sun Jul 05 2026 15:32:37 GMT+0600 (Bangladesh Standard Time)"
 contractorId: "CTR-1038"
 shortDescription: "Wildlife Management pro serving Red River Valley, TX."
 featured: "No"
-_updatedDate: "Wed Jul 08 2026 11:17:59 GMT+0600 (Bangladesh Standard Time)"
+_updatedDate: "Thu Jul 09 2026 15:32:10 GMT+0600 (Bangladesh Standard Time)"
 budgetTier: "$90000"
 gallery: Array(3)jsonTableCopy JSON
-0: {...}
+0: {...}jsonTableCopy JSON
+description: ""
+fileName: "Screenshot 2026-06-23 at 1.10.33 AM.png"
+slug: "701a20_5e9b896925214ad1bc8038cb4175b7bc~mv2.png"
+alt: ""
+src: "wix:image://v1/701a20_5e9b896925214ad1bc8038cb4175b7bc~mv2.png/Screenshot%25202026-06-23%2520at%25201.10.33%25E2%2580%25AFAM.png#originWidth=1384&originHeight=998"
+title: "Screenshot 2026-06-23 at 1.10.33 AM.png"
+type: "image"
+settings: {...}
 1: {...}
 2: {...}
 serviceCounties: "Red River Valley"
@@ -33,3 +44,79 @@ projectSpecialties: Array(3)jsonTableCopy JSON
 2: "98% satisfaction rate from local customers."
 verified: "Yes"
 phone: "936-242-6138"
+contractorsCategory data: 
+Array(1)jsonTableCopy JSON
+0: {...}jsonTableCopy JSON
+image1: "wix:image://v1/869e06_8c113fda80ca4517a220a9de7a897e51~mv2.jpg/c6e.jpg#originWidth=3466&originHeight=2082"
+link-brands-title: "/brands/bvm"
+image: "wix:image://v1/701a20_2274bfcd6f8e459ebecdf067098b237f~mv2.png/999999.png#originWidth=508&originHeight=473"
+_id: "106b6569-5d14-4416-bfdb-1ed4bf0ce692"
+_owner: "869e06a6-eb3a-4b0f-b3d9-1bced1a640fe"
+_createdDate: "Tue Jan 14 2025 10:21:22 GMT+0600 (Bangladesh Standard Time)"
+shortDescription: "Discover BVM at Carada—engineered for thrill and precision. Bold performance, sharp design, and pure driving excitement every time."
+_updatedDate: "Mon Jul 06 2026 16:00:09 GMT+0600 (Bangladesh Standard Time)"
+_manualSort_a38ad008-030b-4264-a2ea-1978a281a332: "6"
+subTitle: "BVM cars at showroom"
+sortOrder: 1
+title: "Wildlife Management"
+projectType data: 
+Array(3)jsonTableCopy JSON
+0: {...}jsonTableCopy JSON
+image: "wix:image://v1/701a20_16abd1f4034e42c59b111692cf48520f~mv2.png/8888.png#originWidth=508&originHeight=473"
+_id: "98f9ee9d-ffd2-4c91-9f2d-8782a794a3a0"
+_owner: "4ae31d05-96a2-4ae0-a738-7f5b3c852a34"
+_createdDate: "Sat Jul 04 2026 10:07:42 GMT+0600 (Bangladesh Standard Time)"
+_updatedDate: "Wed Jul 08 2026 11:47:48 GMT+0600 (Bangladesh Standard Time)"
+sortOrder: 0
+title: "BRUSH HOGGING"
+1: {...}jsonTableCopy JSON
+image: "wix:image://v1/701a20_16abd1f4034e42c59b111692cf48520f~mv2.png/8888.png#originWidth=508&originHeight=473"
+_id: "d1f67032-ba9d-426f-bb95-d8d50ad674c0"
+_owner: "4ae31d05-96a2-4ae0-a738-7f5b3c852a34"
+_createdDate: "Sat Jul 04 2026 10:07:24 GMT+0600 (Bangladesh Standard Time)"
+_updatedDate: "Wed Jul 08 2026 11:47:48 GMT+0600 (Bangladesh Standard Time)"
+sortOrder: 0
+title: "DRIVEWAY CONSTRUCTION"
+2: {...}jsonTableCopy JSON
+image: "wix:image://v1/701a20_16abd1f4034e42c59b111692cf48520f~mv2.png/8888.png#originWidth=508&originHeight=473"
+_id: "11f845ac-575c-4e25-baeb-58d79e8656f0"
+_owner: "4ae31d05-96a2-4ae0-a738-7f5b3c852a34"
+_createdDate: "Sat Jul 04 2026 10:07:04 GMT+0600 (Bangladesh Standard Time)"
+_updatedDate: "Wed Jul 08 2026 11:47:48 GMT+0600 (Bangladesh Standard Time)"
+sortOrder: 0
+title: "DRAINAGE IMPROVEMENT"
+landTypes data: 
+Array(3)jsonTableCopy JSON
+0: {...}jsonTableCopy JSON
+image: "wix:image://v1/701a20_c3b6937021644664947eeaf13e34c28a~mv2.png/icon%201.png#originWidth=378&originHeight=290"
+_id: "e16283bf-8cde-4156-8f2f-06eef307614b"
+_owner: "869e06a6-eb3a-4b0f-b3d9-1bced1a640fe"
+_createdDate: "Tue Jan 14 2025 10:06:56 GMT+0600 (Bangladesh Standard Time)"
+shortDescription: "Browse elegant and efficient sedans at Carada Showroom. Ideal for city driving, business comfort, and everyday style on the road."
+_updatedDate: "Sun Jun 21 2026 11:33:53 GMT+0600 (Bangladesh Standard Time)"
+subTitle: "Sedan cars at showroom"
+sortOrder: 1
+title: "Hunting"
+link-types-title: "/types/sedan"
+1: {...}jsonTableCopy JSON
+image: "wix:image://v1/701a20_26cf57b98aa84d86b9cca214ab186069~mv2.png/4444.png#originWidth=378&originHeight=290"
+_id: "55997b28-9b66-4dc6-9daa-84b5d8f6dbbe"
+_owner: "869e06a6-eb3a-4b0f-b3d9-1bced1a640fe"
+_createdDate: "Tue Jan 14 2025 10:07:37 GMT+0600 (Bangladesh Standard Time)"
+shortDescription: "Explore sleek and sporty coupes at Carada Showroom. Designed for performance, style, and drivers who love an exhilarating ride."
+_updatedDate: "Sun Jun 21 2026 11:34:20 GMT+0600 (Bangladesh Standard Time)"
+subTitle: "Coupe cars at showroom"
+sortOrder: 4
+title: "Timberland"
+link-types-title: "/types/coupe"
+2: {...}jsonTableCopy JSON
+image: "wix:image://v1/701a20_a8047dc955f443999f5963109b328192~mv2.png/33333.png#originWidth=378&originHeight=290"
+_id: "96f5991b-ae1b-4974-af68-dc14eb93d228"
+_owner: "869e06a6-eb3a-4b0f-b3d9-1bced1a640fe"
+_createdDate: "Tue Jan 14 2025 10:07:29 GMT+0600 (Bangladesh Standard Time)"
+shortDescription: "Discover compact and versatile hatchbacks at Carada Showroom. Perfect for urban life, easy parking, and smart everyday driving."
+_updatedDate: "Sat Jul 04 2026 10:01:56 GMT+0600 (Bangladesh Standard Time)"
+subTitle: "Hatchback cars at showroom"
+sortOrder: 3
+title: "Ranching"
+link-types-title: "/types/hatchback"
